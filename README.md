@@ -9,7 +9,7 @@ Whenever I start developing a new project, it really takes me quite a lot of tim
 * [Travis CI](http://travis-ci.org) for automatically testing PHP codes, using [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and [WordPress-Coding-Standard](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards)
 * [Grunt](http://gruntjs.com/) for compiling LESS to CSS, checking for JS errors, live reloading, concatenating and minifying files
 * [Bower](http://bower.io/) for front-end package management
-* [Gitignore](http://www.gitignore.io/) for determine which files and directories to ignore, before you make a commit.
+* [Gitignore](http://www.gitignore.io/) for determine which files and directories to ignore, before you make a commit
 * [Editor Config](http://editorconfig.org/) for configuring the editor according to the same [standard](http://make.wordpress.org/core/handbook/coding-standards/php/#indentation)
 
 ## Theme development
