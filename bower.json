@@ -1,0 +1,19 @@
+{
+  "name": "wp-theme-config",
+  "version": "1.0.0",
+  "homepage": "http://www.example.com",
+  "authors": [
+    "Thanh Luu <thanhlt90@gmail.com>"
+  ],
+  "license": "GPL-3.0+",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "assets/vendor"
+  ],
+  "dependencies": {
+    "fontawesome": "4.2.0",
+    "bootstrap": "3.2.0"
+  }
+}
