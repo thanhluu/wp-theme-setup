@@ -10,7 +10,7 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "assets/vendor"
+    "src/assets/vendor"
   ],
   "dependencies": {
     "fontawesome": "4.2.0",

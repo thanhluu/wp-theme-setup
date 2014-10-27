@@ -6,40 +6,40 @@ module.exports = function(grunt) {
   require('time-grunt')(grunt);
 
   var jsFileList = [
-    'assets/vendor/bootstrap/js/transition.js',
-    'assets/vendor/bootstrap/js/alert.js',
-    'assets/vendor/bootstrap/js/button.js',
-    'assets/vendor/bootstrap/js/carousel.js',
-    'assets/vendor/bootstrap/js/collapse.js',
-    'assets/vendor/bootstrap/js/dropdown.js',
-    'assets/vendor/bootstrap/js/modal.js',
-    'assets/vendor/bootstrap/js/tooltip.js',
-    'assets/vendor/bootstrap/js/popover.js',
-    'assets/vendor/bootstrap/js/scrollspy.js',
-    'assets/vendor/bootstrap/js/tab.js',
-    'assets/vendor/bootstrap/js/affix.js',
-    'assets/js/_*.js'
+    'src/assets/vendor/bootstrap/js/transition.js',
+    'src/assets/vendor/bootstrap/js/alert.js',
+    'src/assets/vendor/bootstrap/js/button.js',
+    'src/assets/vendor/bootstrap/js/carousel.js',
+    'src/assets/vendor/bootstrap/js/collapse.js',
+    'src/assets/vendor/bootstrap/js/dropdown.js',
+    'src/assets/vendor/bootstrap/js/modal.js',
+    'src/assets/vendor/bootstrap/js/tooltip.js',
+    'src/assets/vendor/bootstrap/js/popover.js',
+    'src/assets/vendor/bootstrap/js/scrollspy.js',
+    'src/assets/vendor/bootstrap/js/tab.js',
+    'src/assets/vendor/bootstrap/js/affix.js',
+    'src/assets/js/_*.js'
   ];
 
   grunt.initConfig({
     zip: {
-      flat: {
+      theme: {
         src: [
-          '*.php',
-          '*.css',
-          'readme.txt',
-          'changelog.txt',
-          'screenshot.png',
-          'assets/*.*',
-          'assets/css/editor-style.css',
-          'assets/css/main.min.css',
-          'assets/img/**',
-          'assets/js/html5shiv.min.js',
-          'assets/js/respond.min.js',
-          'assets/js/scripts.min.js',
-          'assets/vendor/fontawesome/fonts/**',
-          'inc/**',
-          'languages/**',
+          'src/*.php',
+          'src/*.css',
+          'src/readme.txt',
+          'src/changelog.txt',
+          'src/screenshot.png',
+          'src/assets/*.*',
+          'src/assets/css/editor-style.css',
+          'src/assets/css/main.min.css',
+          'src/assets/img/**',
+          'src/assets/js/html5shiv.min.js',
+          'src/assets/js/respond.min.js',
+          'src/assets/js/scripts.min.js',
+          'src/assets/vendor/fontawesome/fonts/**',
+          'src/inc/**',
+          'src/languages/**',
         ],
         dest: '../wp-theme-config.zip'
       }
@@ -51,16 +51,16 @@ module.exports = function(grunt) {
       },
       all: [
         'Gruntfile.js',
-        'assets/js/*.js',
-        '!assets/js/scripts.js',
-        '!assets/**/*.min.*'
+        'src/assets/js/*.js',
+        '!src/assets/js/scripts.js',
+        '!src/assets/**/*.min.*'
       ]
     },
     less: {
       dev: {
         files: {
-          'assets/css/main.css': [
-            'assets/less/main.less'
+          'src/assets/css/main.css': [
+            'src/assets/less/main.less'
           ]
         },
         options: {
@@ -68,14 +68,14 @@ module.exports = function(grunt) {
           // LESS source map
           // To enable, set sourceMap to true and update sourceMapRootpath based on your install
           sourceMap: true,
-          sourceMapFilename: 'assets/css/main.css.map',
-          sourceMapRootpath: '/app/themes/wp-theme-config/'
+          sourceMapFilename: 'src/assets/css/main.css.map',
+          sourceMapRootpath: '/app/themes/wp-theme-config/src/'
         }
       },
       build: {
         files: {
-          'assets/css/main.min.css': [
-            'assets/less/main.less'
+          'src/assets/css/main.min.css': [
+            'src/assets/less/main.less'
           ]
         },
         options: {
@@ -89,13 +89,13 @@ module.exports = function(grunt) {
       },
       dist: {
         src: [jsFileList],
-        dest: 'assets/js/scripts.js',
+        dest: 'src/assets/js/scripts.js',
       },
     },
     uglify: {
       dist: {
         files: {
-          'assets/js/scripts.min.js': [jsFileList]
+          'src/assets/js/scripts.min.js': [jsFileList]
         }
       }
     },
@@ -106,20 +106,20 @@ module.exports = function(grunt) {
       dev: {
         options: {
           map: {
-            prev: 'assets/css/'
+            prev: 'src/assets/css/'
           }
         },
-        src: 'assets/css/main.css'
+        src: 'src/assets/css/main.css'
       },
       build: {
-        src: 'assets/css/main.min.css'
+        src: 'src/assets/css/main.min.css'
       }
     },
     watch: {
       less: {
         files: [
-          'assets/less/*.less',
-          'assets/less/**/*.less'
+          'src/assets/less/*.less',
+          'src/assets/less/**/*.less'
         ],
         tasks: ['less:dev', 'autoprefixer:dev']
       },
@@ -137,10 +137,9 @@ module.exports = function(grunt) {
           livereload: false
         },
         files: [
-          'assets/css/main.css',
-          'assets/js/scripts.js',
-          'templates/*.php',
-          '*.php'
+          'src/assets/css/main.css',
+          'src/assets/js/scripts.js',
+          'src/*.php'
         ]
       }
     }
