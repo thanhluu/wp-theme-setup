@@ -1,6 +1,6 @@
 {
   "name": "wp-theme-setup",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "homepage": "http://www.example.com",
   "authors": [
     "Thanh Luu <thanhlt90@gmail.com>"
@@ -12,7 +12,7 @@
     "dev/vendor"
   ],
   "dependencies": {
-    "fontawesome": "4.2.0",
-    "bootstrap": "3.2.0"
+    "fontawesome": "4.3.0",
+    "bootstrap": "3.3.2"
   }
 }

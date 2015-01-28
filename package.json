@@ -1,6 +1,6 @@
 {
   "name": "wp-theme-setup",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Thanh Luu <thanhlt90@gmail.com>",
   "homepage": "http://www.example.com",
   "repository": {
@@ -17,7 +17,7 @@
     }
   ],
   "scripts": {
-    "postinstall": "node node_modules/bower/bin/bower install && grunt && git submodule init && git submodule update"
+    "postinstall": "node node_modules/bower/bin/bower install && grunt dev && git submodule init && git submodule update"
   },
   "engines": {
     "node": ">= 0.10.0"

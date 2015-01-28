@@ -1,8 +1,6 @@
 'use strict';
 module.exports = function(grunt) {
-  // Load all tasks
   require('load-grunt-tasks')(grunt);
-  // Show elapsed time
   require('time-grunt')(grunt);
 
   var jsFileList = [
@@ -139,6 +137,13 @@ module.exports = function(grunt) {
     },
 
     copy: {
+    	assets: {
+        expand: true,
+        cwd: 'dev/vendor/fontawesome/font/',
+        src: ['**'],
+        dest: 'dist/assets/font/',
+        filter: 'isFile'
+      },
       demo: {
         expand: true,
         cwd: 'dist/',
@@ -161,9 +166,16 @@ module.exports = function(grunt) {
 
   // Register tasks
   grunt.registerTask('default', [
-    'watch'
+    'dev'
+  ]);
+  grunt.registerTask('dev',[
+    'copy:assets',
+    'jshint',
+    'less:dev',
+    'uglify'
   ]);
   grunt.registerTask('export_release', [
+  	'copy:assets',
     'less',
     'autoprefixer',
     'concat',
@@ -171,6 +183,7 @@ module.exports = function(grunt) {
     'compress'
   ]);
   grunt.registerTask('export_demo', [
+  	'copy:assets',
     'less',
     'autoprefixer',
     'concat',
