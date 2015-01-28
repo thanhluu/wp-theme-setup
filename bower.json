@@ -1,5 +1,5 @@
 {
-  "name": "wp-theme-config",
+  "name": "wp-theme-setup",
   "version": "1.0.0",
   "homepage": "http://www.example.com",
   "authors": [
@@ -8,9 +8,8 @@
   "license": "GPL-3.0+",
   "private": true,
   "ignore": [
-    "**/.*",
     "node_modules",
-    "src/assets/vendor"
+    "dev/vendor"
   ],
   "dependencies": {
     "fontawesome": "4.2.0",

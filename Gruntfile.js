@@ -6,44 +6,24 @@ module.exports = function(grunt) {
   require('time-grunt')(grunt);
 
   var jsFileList = [
-    'src/assets/vendor/bootstrap/js/transition.js',
-    'src/assets/vendor/bootstrap/js/alert.js',
-    'src/assets/vendor/bootstrap/js/button.js',
-    'src/assets/vendor/bootstrap/js/carousel.js',
-    'src/assets/vendor/bootstrap/js/collapse.js',
-    'src/assets/vendor/bootstrap/js/dropdown.js',
-    'src/assets/vendor/bootstrap/js/modal.js',
-    'src/assets/vendor/bootstrap/js/tooltip.js',
-    'src/assets/vendor/bootstrap/js/popover.js',
-    'src/assets/vendor/bootstrap/js/scrollspy.js',
-    'src/assets/vendor/bootstrap/js/tab.js',
-    'src/assets/vendor/bootstrap/js/affix.js',
-    'src/assets/js/_*.js'
+    'dev/vendor/bootstrap/js/bootstrap-typeahead.js',
+    'dev/vendor/bootstrap/js/bootstrap-transition.js',
+    'dev/vendor/bootstrap/js/bootstrap-alert.js',
+    'dev/vendor/bootstrap/js/bootstrap-button.js',
+    'dev/vendor/bootstrap/js/bootstrap-carousel.js',
+    'dev/vendor/bootstrap/js/bootstrap-collapse.js',
+    'dev/vendor/bootstrap/js/bootstrap-dropdown.js',
+    'dev/vendor/bootstrap/js/bootstrap-modal.js',
+    'dev/vendor/bootstrap/js/bootstrap-tooltip.js',
+    'dev/vendor/bootstrap/js/bootstrap-popover.js',
+    'dev/vendor/bootstrap/js/bootstrap-scrollspy.js',
+    'dev/vendor/bootstrap/js/bootstrap-tab.js',
+    'dev/vendor/bootstrap/js/bootstrap-affix.js',
+    'dev/js/<%= pkg.name %>.js',
   ];
 
   grunt.initConfig({
-    zip: {
-      theme: {
-        src: [
-          'src/*.php',
-          'src/*.css',
-          'src/readme.txt',
-          'src/changelog.txt',
-          'src/screenshot.png',
-          'src/assets/*.*',
-          'src/assets/css/editor-style.css',
-          'src/assets/css/main.min.css',
-          'src/assets/img/**',
-          'src/assets/js/html5shiv.min.js',
-          'src/assets/js/respond.min.js',
-          'src/assets/js/scripts.min.js',
-          'src/assets/vendor/fontawesome/fonts/**',
-          'src/inc/**',
-          'src/languages/**',
-        ],
-        dest: '../wp-theme-config.zip'
-      }
-    },
+    pkg: grunt.file.readJSON('package.json'),
 
     jshint: {
       options: {
@@ -51,31 +31,34 @@ module.exports = function(grunt) {
       },
       all: [
         'Gruntfile.js',
-        'src/assets/js/*.js',
-        '!src/assets/js/scripts.js',
-        '!src/assets/**/*.min.*'
+        'dev/js/**'
       ]
     },
+
     less: {
       dev: {
         files: {
-          'src/assets/css/main.css': [
-            'src/assets/less/main.less'
+          'dist/assets/css/<%= pkg.name %>.css': [
+            'dev/less/<%= pkg.name %>.less'
+          ],
+          'dist/assets/css/<%= pkg.name %>-responsive.css': [
+            'dev/less/<%= pkg.name %>-responsive.less'
           ]
         },
         options: {
           compress: false,
-          // LESS source map
-          // To enable, set sourceMap to true and update sourceMapRootpath based on your install
           sourceMap: true,
-          sourceMapFilename: 'src/assets/css/main.css.map',
-          sourceMapRootpath: '/app/themes/wp-theme-config/src/'
+          sourceMapFilename: 'dist/assets/css/<%= pkg.name %>.css.map'
         }
       },
+
       build: {
         files: {
-          'src/assets/css/main.min.css': [
-            'src/assets/less/main.less'
+          'dist/assets/css/<%= pkg.name %>.min.css': [
+            'dev/less/<%= pkg.name %>.less'
+          ],
+          'dist/assets/css/<%= pkg.name %>-responsive.min.css': [
+            'dev/less/<%= pkg.name %>-responsive.less'
           ]
         },
         options: {
@@ -83,82 +66,128 @@ module.exports = function(grunt) {
         }
       }
     },
+
     concat: {
       options: {
         separator: ';',
       },
       dist: {
         src: [jsFileList],
-        dest: 'src/assets/js/scripts.js',
+        dest: 'dist/assets/js/<%= pkg.name %>.js',
       },
     },
+
     uglify: {
       dist: {
         files: {
-          'src/assets/js/scripts.min.js': [jsFileList]
+          'dist/assets/js/<%= pkg.name %>.min.js': [jsFileList]
         }
       }
     },
+
     autoprefixer: {
       options: {
-        browsers: ['last 2 versions', 'ie 8', 'ie 9', 'android 2.3', 'android 4', 'opera 12']
+        browsers: ['last 2 versions', 'ie 9', 'android 2.3', 'android 4', 'opera 12']
       },
-      dev: {
+      dev_template: {
         options: {
           map: {
-            prev: 'src/assets/css/'
+            prev: 'dist/assets/css/'
           }
         },
-        src: 'src/assets/css/main.css'
+        src: 'dist/assets/css/<%= pkg.name %>.css'
       },
-      build: {
-        src: 'src/assets/css/main.min.css'
+      build_template: {
+        src: 'dist/assets/css/<%= pkg.name %>.min.css'
+      },
+      dev_responsive: {
+        options: {
+          map: {
+            prev: 'dist/assets/css/'
+          }
+        },
+        src: 'dist/assets/css/<%= pkg.name %>-responsive.css'
+      },
+      build_responsive: {
+        src: 'dist/assets/css/<%= pkg.name %>-responsive.min.css'
       }
     },
+
     watch: {
       less: {
         files: [
-          'src/assets/less/*.less',
-          'src/assets/less/**/*.less'
+          'dev/less/**'
         ],
-        tasks: ['less:dev', 'autoprefixer:dev']
+        tasks: ['less:dev', 'less:build', 'autoprefixer:build_template', 'autoprefixer:build_responsive']
       },
       js: {
         files: [
           jsFileList,
           '<%= jshint.all %>'
         ],
-        tasks: ['jshint', 'concat']
+        tasks: ['concat', 'uglify']
       },
       livereload: {
-        // Browser live reloading
-        // https://github.com/gruntjs/grunt-contrib-watch#live-reloading
         options: {
           livereload: false
         },
         files: [
-          'src/assets/css/main.css',
-          'src/assets/js/scripts.js',
-          'src/*.php'
+          'dist/assets/css/**',
+          'dist/assets/js/**',
+          'dist/*.php'
         ]
+      }
+    },
+
+    compress: {
+      main: {
+        options: {
+          archive: 'release/<%= pkg.name %>-<%= pkg.version %>.zip'
+        },
+        files: [
+          { expand: true, cwd: 'dist/', src: ['**'], dest: '<%= pkg.name %>/' }
+        ]
+      }
+    },
+
+    copy: {
+      demo: {
+        expand: true,
+        cwd: 'dist/',
+        src: ['**'],
+        dest: 'demo/'
+      }
+    },
+
+    git_deploy: {
+      demo: {
+        options: {
+          url: '<%= pkg.repository.url %>',
+          branch: 'demo',
+          message: 'Export theme to demo <%= pkg.name %> <%= pkg.version %>'
+        },
+        src: 'demo'
       }
     }
   });
 
   // Register tasks
   grunt.registerTask('default', [
-    'dev'
+    'watch'
   ]);
-  grunt.registerTask('dev', [
-    'jshint',
-    'less:dev',
-    'autoprefixer:dev',
-    'concat'
+  grunt.registerTask('export_release', [
+    'less',
+    'autoprefixer',
+    'concat',
+    'uglify',
+    'compress'
   ]);
-  grunt.registerTask('build', [
-    'jshint',
-    'less:build',
-    'autoprefixer:build',
-    'uglify'
+  grunt.registerTask('export_demo', [
+    'less',
+    'autoprefixer',
+    'concat',
+    'uglify',
+    'copy:demo',
+    'git_deploy:demo'
   ]);
 };
