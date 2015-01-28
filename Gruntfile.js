@@ -6,19 +6,7 @@ module.exports = function(grunt) {
   require('time-grunt')(grunt);
 
   var jsFileList = [
-    'dev/vendor/bootstrap/js/bootstrap-typeahead.js',
-    'dev/vendor/bootstrap/js/bootstrap-transition.js',
-    'dev/vendor/bootstrap/js/bootstrap-alert.js',
-    'dev/vendor/bootstrap/js/bootstrap-button.js',
-    'dev/vendor/bootstrap/js/bootstrap-carousel.js',
-    'dev/vendor/bootstrap/js/bootstrap-collapse.js',
-    'dev/vendor/bootstrap/js/bootstrap-dropdown.js',
-    'dev/vendor/bootstrap/js/bootstrap-modal.js',
-    'dev/vendor/bootstrap/js/bootstrap-tooltip.js',
-    'dev/vendor/bootstrap/js/bootstrap-popover.js',
-    'dev/vendor/bootstrap/js/bootstrap-scrollspy.js',
-    'dev/vendor/bootstrap/js/bootstrap-tab.js',
-    'dev/vendor/bootstrap/js/bootstrap-affix.js',
+    'dev/vendor/bootstrap/js/*.js',
     'dev/js/<%= pkg.name %>.js',
   ];
 

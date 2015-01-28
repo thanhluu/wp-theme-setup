@@ -42,6 +42,7 @@ From the command line, navigate to the theme directory
 
 1. Run `npm install` to install Node modules
 2. Run `bower install` to install front-end packages
+3. Run `git submodule init` and then `git submodule update` to clone Git Sub-Modules
 
 ## Available Grunt Commands
 
