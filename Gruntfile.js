@@ -4,7 +4,18 @@ module.exports = function(grunt) {
   require('time-grunt')(grunt);
 
   var jsFileList = [
-    'dev/vendor/bootstrap/js/*.js',
+    'dev/vendor/bootstrap/js/transition.js',
+    'dev/vendor/bootstrap/js/alert.js',
+    'dev/vendor/bootstrap/js/button.js',
+    'dev/vendor/bootstrap/js/carousel.js',
+    'dev/vendor/bootstrap/js/collapse.js',
+    'dev/vendor/bootstrap/js/dropdown.js',
+    'dev/vendor/bootstrap/js/modal.js',
+    'dev/vendor/bootstrap/js/tooltip.js',
+    'dev/vendor/bootstrap/js/popover.js',
+    'dev/vendor/bootstrap/js/scrollspy.js',
+    'dev/vendor/bootstrap/js/tab.js',
+    'dev/vendor/bootstrap/js/affix.js',
     'dev/js/<%= pkg.name %>.js',
   ];
 
@@ -26,9 +37,6 @@ module.exports = function(grunt) {
         files: {
           'dist/assets/css/<%= pkg.name %>.css': [
             'dev/less/<%= pkg.name %>.less'
-          ],
-          'dist/assets/css/<%= pkg.name %>-responsive.css': [
-            'dev/less/<%= pkg.name %>-responsive.less'
           ]
         },
         options: {
@@ -42,9 +50,6 @@ module.exports = function(grunt) {
         files: {
           'dist/assets/css/<%= pkg.name %>.min.css': [
             'dev/less/<%= pkg.name %>.less'
-          ],
-          'dist/assets/css/<%= pkg.name %>-responsive.min.css': [
-            'dev/less/<%= pkg.name %>-responsive.less'
           ]
         },
         options: {
@@ -75,7 +80,7 @@ module.exports = function(grunt) {
       options: {
         browsers: ['last 2 versions', 'ie 9', 'android 2.3', 'android 4', 'opera 12']
       },
-      dev_template: {
+      dev: {
         options: {
           map: {
             prev: 'dist/assets/css/'
@@ -83,19 +88,8 @@ module.exports = function(grunt) {
         },
         src: 'dist/assets/css/<%= pkg.name %>.css'
       },
-      build_template: {
+      build: {
         src: 'dist/assets/css/<%= pkg.name %>.min.css'
-      },
-      dev_responsive: {
-        options: {
-          map: {
-            prev: 'dist/assets/css/'
-          }
-        },
-        src: 'dist/assets/css/<%= pkg.name %>-responsive.css'
-      },
-      build_responsive: {
-        src: 'dist/assets/css/<%= pkg.name %>-responsive.min.css'
       }
     },
 
@@ -104,7 +98,7 @@ module.exports = function(grunt) {
         files: [
           'dev/less/**'
         ],
-        tasks: ['less:dev', 'less:build', 'autoprefixer:build_template', 'autoprefixer:build_responsive']
+        tasks: ['less:dev', 'autoprefixer:dev']
       },
       js: {
         files: [
@@ -171,7 +165,7 @@ module.exports = function(grunt) {
   grunt.registerTask('dev',[
     'copy:assets',
     'jshint',
-    'less:dev',
+    'less:build',
     'uglify'
   ]);
   grunt.registerTask('export_release', [
